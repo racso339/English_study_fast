@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tracker C1</title>
+<meta name="description" content="Registro de estudio y medición del progreso hacia C1 en inglés.">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+<style>
+:root {
+  --bg: #f6f7f9; --surface: #ffffff; --text: #1b1f24; --muted: #5d6673; --border: #dfe3e8;
+  --accent: #2f6fdb; --accent-text: #ffffff; --ok: #1f8a4c; --warn: #b7791f; --bad: #c53030;
+  --c-speaking: #d9480f; --c-writing: #9c36b5; --c-listening: #1971c2;
+  --c-reading: #2b8a3e; --c-grammar: #e67700; --c-vocabulary: #5c7cfa;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111418; --surface: #1a1f25; --text: #e7eaee; --muted: #9aa4b1; --border: #2c333c;
+    --accent: #5b8def; --accent-text: #0b0e12; --ok: #4cc27f; --warn: #e0a84a; --bad: #f07171;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111418; --surface: #1a1f25; --text: #e7eaee; --muted: #9aa4b1; --border: #2c333c;
+  --accent: #5b8def; --accent-text: #0b0e12; --ok: #4cc27f; --warn: #e0a84a; --bad: #f07171;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+header h1 { font-size: 18px; margin: 0; flex: 1; }
+nav { display: flex; gap: 4px; flex-wrap: wrap; }
+nav button { background: none; border: 1px solid transparent; color: var(--muted); padding: 6px 12px; border-radius: 8px; cursor: pointer; font: inherit; }
+nav button.active { color: var(--text); border-color: var(--border); background: var(--bg); font-weight: 600; }
+main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+section { display: none; } section.active { display: block; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.card h2 { font-size: 16px; margin: 0 0 12px; }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.kpis { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 16px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+.kpi .v { font-size: 24px; font-weight: 700; }
+.kpi .l { color: var(--muted); font-size: 13px; }
+form { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); align-items: end; }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+input, select, textarea { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px; width: 100%; }
+button.primary, button.sec { font: inherit; border-radius: 8px; padding: 8px 14px; cursor: pointer; border: 1px solid var(--accent); }
+button.primary { background: var(--accent); color: var(--accent-text); }
+button.sec { background: none; color: var(--accent); }
+.quick { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.quick button { font: inherit; font-size: 13px; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; cursor: pointer; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; }
+td button { background: none; border: none; color: var(--bad); cursor: pointer; font: inherit; }
+.tag { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; color: #fff; }
+.muted { color: var(--muted); font-size: 13px; }
+.alert { padding: 8px 12px; border-radius: 8px; border-left: 4px solid var(--warn); background: var(--bg); margin: 6px 0; }
+.alert.ok { border-color: var(--ok); }
+.chart-box { position: relative; height: 280px; }
+.bar { height: 10px; border-radius: 5px; background: var(--border); overflow: hidden; }
+.bar > span { display: block; height: 100%; background: var(--accent); }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.toast { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 8px 16px; border-radius: 8px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🎯 Tracker C1</h1>
+  <nav id="tabs">
+    <button data-tab="hoy" class="active">Registrar</button>
+    <button data-tab="dash">Dashboard</button>
+    <button data-tab="eval">Evaluaciones</button>
+    <button data-tab="datos">Datos</button>
+  </nav>
+  <button class="sec" id="themeBtn" title="Cambiar tema">◐</button>
+</header>
+
+<main>
+<!-- REGISTRAR -->
+<section id="hoy" class="active">
+  <div class="card">
+    <h2>Nueva sesión de estudio</h2>
+    <div class="quick" id="quick"></div>
+    <form id="fSesion">
+      <label>Fecha<input type="date" name="fecha" required></label>
+      <label>Habilidad
+        <select name="habilidad" required>
+          <option value="reading">reading</option><option value="listening">listening</option>
+          <option value="speaking">speaking</option><option value="writing">writing</option>
+          <option value="grammar">grammar</option><option value="vocabulary">vocabulary</option>
+        </select></label>
+      <label>Actividad<input name="actividad" placeholder="Graded reader, Anki, 4/3/2…" required></label>
+      <label>Minutos<input type="number" name="minutos" min="1" max="600" required></label>
+      <label>Cantidad<input type="number" name="cantidad" min="0" placeholder="opcional"></label>
+      <label>Unidad
+        <select name="unidad"><option value="">—</option><option>palabras</option><option>tarjetas</option><option>minutos-audio</option><option>páginas</option></select></label>
+      <label style="grid-column: 1 / -1">Notas<input name="notas" placeholder="Errores notados, palabras nuevas, sensaciones…"></label>
+      <button class="primary" type="submit">Guardar sesión</button>
+    </form>
+  </div>
+  <div class="grid">
+    <div class="card"><h2>Hoy</h2><div id="hoyResumen"></div></div>
+    <div class="card"><h2>Rutina sugerida (120 min)</h2>
+      <div class="muted">20 vocabulary · 30 reading · 30 listening · 15 grammar · 15 speaking · 10 writing. Versión mínima de 60 min: 15 Anki · 25 input · 10 speaking · 10 grammar/writing.</div>
+    </div>
+  </div>
+  <div class="card"><h2>Últimas sesiones</h2><div class="table-wrap"><table id="tSesiones"></table></div></div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dash">
+  <div class="kpis" id="kpis"></div>
+  <div class="card"><h2>Proyección hacia <span id="objLbl">C1</span></h2><div id="proyeccion"></div></div>
+  <div class="grid">
+    <div class="card"><h2>Horas por semana y habilidad</h2><div class="chart-box"><canvas id="chSemanas"></canvas></div></div>
+    <div class="card"><h2>Distribución (28 días) vs. plan</h2><div id="distrib"></div></div>
+  </div>
+  <div class="grid">
+    <div class="card"><h2>Nivel MCER por habilidad</h2><div class="chart-box"><canvas id="chCefr"></canvas></div></div>
+    <div class="card"><h2>Tamaño de vocabulario</h2><div class="chart-box"><canvas id="chVocab"></canvas></div></div>
+  </div>
+  <div class="grid">
+    <div class="card"><h2>Alertas</h2><div id="alertas"></div></div>
+    <div class="card"><h2>Próximas evaluaciones</h2><div id="proximas"></div></div>
+  </div>
+</section>
+
+<!-- EVALUACIONES -->
+<section id="eval">
+  <div class="card">
+    <h2>Nueva evaluación</h2>
+    <form id="fEval">
+      <label>Fecha<input type="date" name="fecha" required></label>
+      <label>Prueba
+        <input name="prueba" list="pruebas" required placeholder="EF SET 50">
+        <datalist id="pruebas">
+          <option>EF SET 50</option><option>EF SET 4-skill</option><option>Vocabulary Size Test</option>
+          <option>Write & Improve</option><option>Speaking grabado</option><option>Autoevaluación MCER</option>
+          <option>Simulacro C1 Advanced</option>
+        </datalist></label>
+      <label>Habilidad
+        <select name="habilidad">
+          <option>general</option><option>reading</option><option>listening</option><option>speaking</option>
+          <option>writing</option><option>grammar</option><option>vocabulary</option>
+        </select></label>
+      <label>Puntaje<input type="number" step="any" name="puntaje" placeholder="EF SET 0-100, familias, PPM…"></label>
+      <label>MCER
+        <select name="cefr"><option value="">—</option>
+          <option>A1</option><option>A1+</option><option>A2</option><option>A2+</option><option>B1</option><option>B1+</option>
+          <option>B2</option><option>B2+</option><option>C1</option><option>C1+</option><option>C2</option></select></label>
+      <label style="grid-column: 1 / -1">Notas<input name="notas"></label>
+      <button class="primary" type="submit">Guardar evaluación</button>
+    </form>
+    <p class="muted">Cómo medir cada destreza: ver <code>tracker/rubricas.md</code>. Para el <b>Vocabulary Size Test</b> pon en "puntaje" el número de familias (p. ej. 4400). Para el <b>speaking grabado</b> pon las palabras por minuto (PPM) y el MCER de la rúbrica.</p>
+  </div>
+  <div class="card"><h2>Historial</h2><div class="table-wrap"><table id="tEval"></table></div></div>
+</section>
+
+<!-- DATOS -->
+<section id="datos">
+  <div class="card">
+    <h2>Configuración</h2>
+    <form id="fConfig">
+      <label>Meta de minutos por día<input type="number" name="meta" min="10" max="600"></label>
+      <label>Nivel objetivo<select name="objetivo"><option>B2</option><option>C1</option><option>C2</option></select></label>
+      <button class="primary" type="submit">Guardar</button>
+    </form>
+  </div>
+  <div class="card">
+    <h2>Exportar / importar</h2>
+    <p class="muted">Los datos se guardan <b>solo en este navegador</b>. Exporta con regularidad y guarda los CSV en <code>tracker/data/</code> del repo: son el mismo formato que usa <code>python tracker/progress.py</code>.</p>
+    <div class="row">
+      <button class="primary" id="expS">⬇ sesiones.csv</button>
+      <button class="primary" id="expE">⬇ evaluaciones.csv</button>
+      <button class="sec" id="expJ">⬇ Respaldo JSON</button>
+    </div>
+    <p></p>
+    <div class="row">
+      <label style="flex:1">Importar CSV (sesiones o evaluaciones; se detecta por la cabecera)<input type="file" id="impCsv" accept=".csv" multiple></label>
+      <label style="flex:1">Restaurar respaldo JSON<input type="file" id="impJson" accept=".json"></label>
+    </div>
+    <p class="muted">Al importar un CSV se <b>añaden</b> las filas que no estén ya registradas (no se duplican).</p>
+  </div>
+  <div class="card">
+    <h2>Zona peligrosa</h2>
+    <button class="sec" id="borrar" style="color:var(--bad);border-color:var(--bad)">Borrar todos los datos del navegador</button>
+  </div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+const KEY = "tracker-c1.v1";
+const SKILLS = ["speaking", "writing", "listening", "reading", "grammar", "vocabulary"];
+const CEFR = ["A1", "A2", "B1", "B2", "C1", "C2"];
+const HORAS = { A1: 95, A2: 190, B1: 375, B2: 550, C1: 750, C2: 1100 }; // Cambridge, horas guiadas acumuladas (punto medio)
+const PLAN = { input: 0.5, output: 0.25, vocabulary: 0.15, grammar: 0.10 };
+const S_FIELDS = ["fecha", "habilidad", "actividad", "minutos", "cantidad", "unidad", "notas"];
+const E_FIELDS = ["fecha", "prueba", "habilidad", "puntaje", "cefr", "notas"];
+const QUICK = [
+  ["vocabulary", "Anki FSRS", 20, "tarjetas"], ["reading", "Graded reader / lectura extensiva", 30, "palabras"],
+  ["listening", "Podcast / escucha extensiva", 30, "minutos-audio"], ["listening", "Dictado (intensiva)", 15, ""],
+  ["grammar", "Gramática explícita + ejercicios", 15, ""], ["speaking", "Shadowing", 10, ""],
+  ["speaking", "4/3/2", 10, ""], ["speaking", "Conversación (humano)", 30, ""], ["speaking", "Conversación (IA)", 20, ""],
+  ["writing", "Texto + feedback", 30, "palabras"], ["writing", "Reescritura", 20, ""]
+];
+
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const color = s => css("--c-" + s) || css("--accent");
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const todayISO = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
+const parseD = s => new Date(s + "T00:00:00");
+const iso = d => { const x = new Date(d); x.setMinutes(x.getMinutes() - x.getTimezoneOffset()); return x.toISOString().slice(0, 10); };
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+const num = v => { const n = parseFloat(v); return isNaN(n) ? null : n; };
+const cefrNum = c => { if (!c) return null; c = String(c).trim().toUpperCase(); const p = c.endsWith("+") ? 0.5 : 0; const i = CEFR.indexOf(c.replace("+", "")); return i < 0 ? null : i + 1 + p; };
+const numCefr = n => n == null ? "—" : CEFR[Math.min(Math.floor(n), 6) - 1] + (n % 1 >= 0.5 ? "+" : "");
+
+// ---------- Estado ----------
+let db = { sesiones: [], evaluaciones: [], config: { meta: 90, objetivo: "C1" } };
+function load() {
+  try { const raw = localStorage.getItem(KEY); if (raw) db = Object.assign(db, JSON.parse(raw)); } catch (e) { /* sin storage: solo memoria */ }
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(db)); } catch (e) { toast("⚠ No se pudo guardar en el navegador: exporta tus datos"); }
+}
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2200); }
+
+// ---------- CSV ----------
+function csvParse(text) {
+  const rows = []; let row = [], f = "", q = false;
+  text = text.replace(/^﻿/, "");
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c;
+    } else if (c === '"') q = true;
+    else if (c === ",") { row.push(f); f = ""; }
+    else if (c === "\n" || c === "\r") { if (c === "\r" && text[i + 1] === "\n") i++; row.push(f); rows.push(row); row = []; f = ""; }
+    else f += c;
+  }
+  if (f !== "" || row.length) { row.push(f); rows.push(row); }
+  return rows.filter(r => r.some(x => x.trim() !== ""));
+}
+const csvCell = v => { v = String(v ?? ""); return /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+const toCsv = (rows, fields) => [fields.join(","), ...rows.map(r => fields.map(k => csvCell(r[k])).join(","))].join("\n") + "\n";
+function download(name, content, type) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([content], { type }));
+  a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+const rowKey = (r, f) => f.map(k => String(r[k] ?? "")).join("|");
+function importCsv(text) {
+  const rows = csvParse(text); if (!rows.length) return "vacío";
+  const head = rows[0].map(h => h.trim().toLowerCase());
+  let fields, target;
+  if (S_FIELDS.every(k => head.includes(k))) { fields = S_FIELDS; target = db.sesiones; }
+  else if (E_FIELDS.every(k => head.includes(k))) { fields = E_FIELDS; target = db.evaluaciones; }
+  else return "cabecera no reconocida";
+  const seen = new Set(target.map(r => rowKey(r, fields))); let n = 0;
+  for (const r of rows.slice(1)) {
+    const o = {}; fields.forEach(k => o[k] = (r[head.indexOf(k)] ?? "").trim());
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(o.fecha)) continue;
+    const k = rowKey(o, fields); if (seen.has(k)) continue;
+    seen.add(k); o.id = crypto.randomUUID ? crypto.randomUUID() : String(Math.random()); target.push(o); n++;
+  }
+  return n + " filas añadidas";
+}
+
+// ---------- Cálculos ----------
+function stats() {
+  const hoy = parseD(todayISO());
+  const ini28 = addDays(hoy, -27);
+  const porDia = {}; const hab = {}; const hab28 = {};
+  let palabras = 0, palabrasMes = 0;
+  const mes = todayISO().slice(0, 7);
+  for (const s of db.sesiones) {
+    const m = num(s.minutos) || 0; const d = parseD(s.fecha);
+    porDia[s.fecha] = (porDia[s.fecha] || 0) + m;
+    hab[s.habilidad] = (hab[s.habilidad] || 0) + m;
+    if (d >= ini28 && d <= hoy) hab28[s.habilidad] = (hab28[s.habilidad] || 0) + m;
+    if ((s.unidad || "").startsWith("palabra")) { const c = num(s.cantidad) || 0; palabras += c; if (s.fecha.startsWith(mes)) palabrasMes += c; }
+  }
+  const dias = Object.keys(porDia).sort();
+  const ventana = dias.length ? Math.max(1, Math.min(28, Math.round((hoy - parseD(dias[0])) / 864e5) + 1)) : 28;
+  const min28 = Object.values(hab28).reduce((a, b) => a + b, 0);
+  const activos28 = dias.filter(d => parseD(d) >= ini28 && porDia[d] > 0).length;
+  let racha = 0; let d = porDia[todayISO()] ? hoy : addDays(hoy, -1);
+  while (porDia[iso(d)] > 0) { racha++; d = addDays(d, -1); }
+  const total = Object.values(hab).reduce((a, b) => a + b, 0);
+  const ultimas = {};
+  [...db.evaluaciones].sort((a, b) => a.fecha.localeCompare(b.fecha)).forEach(e => { if (cefrNum(e.cefr) != null) ultimas[e.habilidad] = e; });
+  return { hoy, porDia, hab, hab28, palabras, palabrasMes, ventana, min28, activos28, racha, total, prom: min28 / ventana, ultimas };
+}
+
+function proyeccion(st) {
+  const obj = db.config.objetivo || "C1";
+  const niveles = Object.values(st.ultimas).map(e => cefrNum(e.cefr)).filter(n => n != null);
+  if (!niveles.length || st.prom <= 0) return { html: '<p class="muted">Necesitas al menos una evaluación con nivel MCER y sesiones recientes. Empieza por el diagnóstico (Fase 0 del plan).</p>' };
+  const nmin = Math.min(...niveles); const base = numCefr(nmin).replace("+", "");
+  let hb = HORAS[base];
+  if (nmin % 1 >= 0.5) hb = (hb + HORAS[CEFR[Math.min(CEFR.indexOf(base) + 1, 5)]]) / 2;
+  const fref = Object.values(st.ultimas).map(e => e.fecha).sort().pop();
+  const desde = db.sesiones.filter(s => s.fecha > fref).reduce((a, s) => a + (num(s.minutos) || 0), 0) / 60;
+  const rest = Math.max(0, HORAS[obj] - hb - desde);
+  const dmin = rest * 1.2 * 60 / st.prom, dmax = rest * 1.8 * 60 / st.prom;
+  const pct = Math.min(100, 100 * (hb + desde) / HORAS[obj]);
+  const f = x => addDays(st.hoy, Math.round(x)).toLocaleDateString("es", { month: "short", year: "numeric" });
+  return { html: `
+    <div class="row" style="justify-content:space-between"><span>Habilidad más débil: <b>${numCefr(nmin)}</b></span><span class="muted">${pct.toFixed(0)} % del camino (en horas de referencia)</span></div>
+    <div class="bar" style="margin:8px 0"><span style="width:${pct}%"></span></div>
+    <p>Faltan ≈ <b>${rest.toFixed(0)} h</b> guiadas equivalentes para ${obj}. A tu ritmo (${st.prom.toFixed(0)} min/día): <b>${rest ? f(dmin) + " – " + f(dmax) : "¡objetivo alcanzado en horas! Confírmalo con un simulacro"}</b>${rest ? ` (${(dmin / 30).toFixed(0)}–${(dmax / 30).toFixed(0)} meses)` : ""}.</p>
+    <p class="muted">Estimación orientativa: referencia de horas guiadas de Cambridge (${obj} ≈ ${HORAS[obj]} h acumuladas) × factor de autoestudio 1.2–1.8. Se basa en tu habilidad más débil, porque el ${obj} real exige todas.</p>` };
+}
+
+// ---------- Render ----------
+let charts = {};
+function chart(id, cfg) {
+  if (typeof Chart === "undefined") { const c = document.getElementById(id); if (c) c.parentElement.innerHTML = '<p class="muted">No se pudieron cargar las gráficas (sin conexión a internet). El resto funciona igual.</p>'; return; }
+  if (charts[id]) charts[id].destroy();
+  const t = css("--muted"), g = css("--border");
+  cfg.options = Object.assign({ responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: t, boxWidth: 12 } } } }, cfg.options || {});
+  for (const ax of Object.values(cfg.options.scales || {})) { ax.ticks = Object.assign({ color: t }, ax.ticks); ax.grid = { color: g }; }
+  charts[id] = new Chart(document.getElementById(id), cfg);
+}
+
+function renderSesiones() {
+  const rows = [...db.sesiones].sort((a, b) => b.fecha.localeCompare(a.fecha)).slice(0, 30);
+  $("#tSesiones").innerHTML = rows.length ? "<tr><th>Fecha</th><th>Habilidad</th><th>Actividad</th><th>Min</th><th>Cantidad</th><th>Notas</th><th></th></tr>" +
+    rows.map(s => `<tr><td>${esc(s.fecha)}</td><td><span class="tag" style="background:${color(s.habilidad)}">${esc(s.habilidad)}</span></td><td>${esc(s.actividad)}</td><td>${esc(s.minutos)}</td><td>${esc(s.cantidad)} ${esc(s.unidad)}</td><td>${esc(s.notas)}</td><td><button data-del-s="${esc(s.id)}" title="Borrar">✕</button></td></tr>`).join("")
+    : '<tr><td class="muted">Aún no hay sesiones.</td></tr>';
+  const hoy = db.sesiones.filter(s => s.fecha === todayISO());
+  const m = hoy.reduce((a, s) => a + (num(s.minutos) || 0), 0); const meta = db.config.meta;
+  $("#hoyResumen").innerHTML = `<div class="row" style="justify-content:space-between"><b>${m} / ${meta} min</b><span class="muted">${Math.min(100, Math.round(100 * m / meta))} %</span></div>
+    <div class="bar" style="margin:8px 0"><span style="width:${Math.min(100, 100 * m / meta)}%"></span></div>
+    <div class="muted">${SKILLS.map(k => { const x = hoy.filter(s => s.habilidad === k).reduce((a, s) => a + (num(s.minutos) || 0), 0); return x ? `${k}: ${x}` : ""; }).filter(Boolean).join(" · ") || "Nada registrado hoy."}</div>`;
+}
+
+function renderEval() {
+  const rows = [...db.evaluaciones].sort((a, b) => b.fecha.localeCompare(a.fecha));
+  $("#tEval").innerHTML = rows.length ? "<tr><th>Fecha</th><th>Prueba</th><th>Habilidad</th><th>Puntaje</th><th>MCER</th><th>Notas</th><th></th></tr>" +
+    rows.map(e => `<tr><td>${esc(e.fecha)}</td><td>${esc(e.prueba)}</td><td>${esc(e.habilidad)}</td><td>${esc(e.puntaje)}</td><td><b>${esc(e.cefr)}</b></td><td>${esc(e.notas)}</td><td><button data-del-e="${esc(e.id)}" title="Borrar">✕</button></td></tr>`).join("")
+    : '<tr><td class="muted">Aún no hay evaluaciones. Haz el diagnóstico de la Fase 0.</td></tr>';
+}
+
+function renderDash() {
+  const st = stats();
+  $("#objLbl").textContent = db.config.objetivo;
+  const cumpl = Math.min(100, 100 * st.prom / db.config.meta);
+  $("#kpis").innerHTML = [
+    [(st.total / 60).toFixed(1) + " h", "Horas totales"],
+    [st.prom.toFixed(0) + " min", `Promedio diario (${st.ventana} d)`],
+    [cumpl.toFixed(0) + " %", "Cumplimiento de la meta"],
+    [st.racha + " d", "Racha actual"],
+    [`${st.activos28}/${st.ventana}`, "Días activos"],
+    [Math.round(st.palabrasMes).toLocaleString("es"), "Palabras leídas este mes"]
+  ].map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+  $("#proyeccion").innerHTML = proyeccion(st).html;
+
+  // Semanas (últimas 12)
+  const lunes = addDays(st.hoy, -((st.hoy.getDay() + 6) % 7));
+  const semanas = [...Array(12)].map((_, i) => addDays(lunes, -7 * (11 - i)));
+  const ds = SKILLS.map(k => ({ label: k, backgroundColor: color(k), stack: "s",
+    data: semanas.map(w => db.sesiones.filter(s => s.habilidad === k && parseD(s.fecha) >= w && parseD(s.fecha) < addDays(w, 7)).reduce((a, s) => a + (num(s.minutos) || 0), 0) / 60) }));
+  chart("chSemanas", { type: "bar", data: { labels: semanas.map(w => iso(w).slice(5)), datasets: ds },
+    options: { scales: { x: { stacked: true }, y: { stacked: true, title: { display: true, text: "horas", color: css("--muted") } } } } });
+
+  // Distribución
+  const t = st.min28 || 1; const h = st.hab28;
+  const grupos = [["Input (reading + listening)", ((h.reading || 0) + (h.listening || 0)) / t, PLAN.input],
+    ["Output (speaking + writing)", ((h.speaking || 0) + (h.writing || 0)) / t, PLAN.output],
+    ["Vocabulary", (h.vocabulary || 0) / t, PLAN.vocabulary], ["Grammar", (h.grammar || 0) / t, PLAN.grammar]];
+  $("#distrib").innerHTML = grupos.map(([n, v, p]) => `<div style="margin-bottom:10px"><div class="row" style="justify-content:space-between"><span>${n}</span><span class="muted">${(100 * v).toFixed(0)} % · plan ${(100 * p).toFixed(0)} %</span></div><div class="bar"><span style="width:${Math.min(100, 100 * v)}%;background:${Math.abs(v - p) <= 0.1 ? css("--ok") : css("--warn")}"></span></div></div>`).join("") +
+    `<p class="muted">${(st.min28 / 60).toFixed(1)} h en los últimos ${st.ventana} días.</p>`;
+
+  // MCER por habilidad
+  const habs = ["general", ...SKILLS];
+  const evs = db.evaluaciones.filter(e => cefrNum(e.cefr) != null).sort((a, b) => a.fecha.localeCompare(b.fecha));
+  const fechas = [...new Set(evs.map(e => e.fecha))];
+  chart("chCefr", { type: "line", data: { labels: fechas,
+    datasets: habs.filter(k => evs.some(e => e.habilidad === k)).map(k => ({ label: k, borderColor: k === "general" ? css("--text") : color(k), backgroundColor: k === "general" ? css("--text") : color(k), spanGaps: true, tension: .2,
+      data: fechas.map(f => { const e = evs.filter(x => x.habilidad === k && x.fecha === f).pop(); return e ? cefrNum(e.cefr) : null; }) })) },
+    options: { scales: { y: { min: 1, max: 6, ticks: { stepSize: 0.5, callback: v => numCefr(v) } } } } });
+
+  // Vocabulario
+  const voc = db.evaluaciones.filter(e => e.habilidad === "vocabulary" && num(e.puntaje) != null).sort((a, b) => a.fecha.localeCompare(b.fecha));
+  chart("chVocab", { type: "line", data: { labels: voc.map(e => e.fecha), datasets: [
+    { label: "Familias de palabras", data: voc.map(e => num(e.puntaje)), borderColor: color("vocabulary"), backgroundColor: color("vocabulary"), tension: .2 },
+    { label: "Meta C1 (8.000)", data: voc.map(() => 8000), borderColor: css("--muted"), borderDash: [6, 4], pointRadius: 0 }] },
+    options: { scales: { y: { beginAtZero: true } } } });
+
+  // Alertas
+  const al = [];
+  if (st.min28 > 0) {
+    if (grupos[0][1] < 0.4) al.push("Input por debajo del 40 %: sube la lectura o la escucha extensiva.");
+    if (grupos[1][1] < 0.15) al.push("Output por debajo del 15 %: sin producción se fosilizan errores.");
+    if (grupos[2][1] > 0.3) al.push("Más del 30 % en vocabulario: baja las tarjetas nuevas y lee más.");
+  }
+  if (db.sesiones.length && st.activos28 < 0.7 * st.ventana) al.push(`Solo ${st.activos28} días activos de ${st.ventana}: prioriza la constancia (rutina de 60 min).`);
+  if (!db.evaluaciones.length) al.push("Sin línea base: haz el diagnóstico de la Fase 0.");
+  $("#alertas").innerHTML = al.length ? al.map(a => `<div class="alert">${a}</div>`).join("") : '<div class="alert ok">Todo en orden. ¡Sigue así!</div>';
+
+  // Próximas evaluaciones
+  const reglas = [["EF SET", 28], ["Write & Improve", 28], ["Speaking grabado", 28], ["Vocabulary Size Test", 56], ["Simulacro", 90]];
+  $("#proximas").innerHTML = reglas.map(([p, c]) => {
+    const f = db.evaluaciones.filter(e => e.prueba.toLowerCase().startsWith(p.toLowerCase().split(" ")[0])).map(e => e.fecha).sort().pop();
+    if (!f) return `<div class="alert">${p}: pendiente (línea base)</div>`;
+    const prox = addDays(parseD(f), c); const dd = Math.round((prox - st.hoy) / 864e5);
+    return `<div class="alert ${dd > 0 ? "ok" : ""}">${p}: ${iso(prox)} ${dd > 0 ? `(en ${dd} días)` : "(vencida)"}</div>`;
+  }).join("");
+}
+
+function renderAll() { renderSesiones(); renderEval(); if ($("#dash").classList.contains("active")) renderDash(); }
+
+// ---------- Eventos ----------
+function initForms() {
+  document.querySelectorAll('input[type="date"]').forEach(i => i.value = todayISO());
+  $("#quick").innerHTML = QUICK.map((q, i) => `<button type="button" data-q="${i}">${q[1]} · ${q[2]}′</button>`).join("");
+  $("#quick").addEventListener("click", e => {
+    const i = e.target.dataset.q; if (i == null) return; const [h, a, m, u] = QUICK[i]; const f = $("#fSesion");
+    f.habilidad.value = h; f.actividad.value = a; f.minutos.value = m; f.unidad.value = u; f.cantidad.focus();
+  });
+  $("#fSesion").addEventListener("submit", e => {
+    e.preventDefault(); const f = new FormData(e.target); const o = Object.fromEntries(S_FIELDS.map(k => [k, (f.get(k) || "").toString().trim()]));
+    o.id = crypto.randomUUID ? crypto.randomUUID() : String(Math.random()); db.sesiones.push(o); save();
+    const fecha = e.target.fecha.value; e.target.reset(); e.target.fecha.value = fecha; renderAll(); toast("Sesión guardada ✓");
+  });
+  $("#fEval").addEventListener("submit", e => {
+    e.preventDefault(); const f = new FormData(e.target); const o = Object.fromEntries(E_FIELDS.map(k => [k, (f.get(k) || "").toString().trim()]));
+    o.id = crypto.randomUUID ? crypto.randomUUID() : String(Math.random()); db.evaluaciones.push(o); save();
+    e.target.reset(); e.target.fecha.value = todayISO(); renderAll(); toast("Evaluación guardada ✓");
+  });
+  const fc = $("#fConfig"); fc.meta.value = db.config.meta; fc.objetivo.value = db.config.objetivo;
+  fc.addEventListener("submit", e => { e.preventDefault(); db.config.meta = Number(fc.meta.value) || 90; db.config.objetivo = fc.objetivo.value; save(); renderAll(); toast("Configuración guardada ✓"); });
+  document.addEventListener("click", e => {
+    const s = e.target.dataset.delS, v = e.target.dataset.delE;
+    if (s && confirm("¿Borrar esta sesión?")) { db.sesiones = db.sesiones.filter(x => x.id !== s); save(); renderAll(); }
+    if (v && confirm("¿Borrar esta evaluación?")) { db.evaluaciones = db.evaluaciones.filter(x => x.id !== v); save(); renderAll(); }
+  });
+  $("#tabs").addEventListener("click", e => {
+    const t = e.target.dataset.tab; if (!t) return;
+    document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("active", b.dataset.tab === t));
+    document.querySelectorAll("section").forEach(s => s.classList.toggle("active", s.id === t));
+    try { localStorage.setItem(KEY + ".tab", t); } catch (e) {}
+    if (t === "dash") renderDash();
+  });
+  $("#expS").onclick = () => download("sesiones.csv", toCsv([...db.sesiones].sort((a, b) => a.fecha.localeCompare(b.fecha)), S_FIELDS), "text/csv");
+  $("#expE").onclick = () => download("evaluaciones.csv", toCsv([...db.evaluaciones].sort((a, b) => a.fecha.localeCompare(b.fecha)), E_FIELDS), "text/csv");
+  $("#expJ").onclick = () => download(`tracker-c1-${todayISO()}.json`, JSON.stringify(db, null, 2), "application/json");
+  $("#impCsv").addEventListener("change", async e => {
+    const msgs = []; for (const file of e.target.files) msgs.push(file.name + ": " + importCsv(await file.text()));
+    save(); renderAll(); toast(msgs.join(" · ")); e.target.value = "";
+  });
+  $("#impJson").addEventListener("change", async e => {
+    const file = e.target.files[0]; if (!file) return;
+    try { const d = JSON.parse(await file.text()); if (!Array.isArray(d.sesiones) || !Array.isArray(d.evaluaciones)) throw 0;
+      if (confirm("Esto reemplaza todos tus datos actuales. ¿Continuar?")) { db = Object.assign({ config: { meta: 90, objetivo: "C1" } }, d); save(); renderAll(); toast("Respaldo restaurado ✓"); }
+    } catch (x) { toast("Archivo JSON no válido"); }
+    e.target.value = "";
+  });
+  $("#borrar").onclick = () => { if (confirm("¿Seguro? Exporta antes un respaldo. Esto no se puede deshacer.")) { db.sesiones = []; db.evaluaciones = []; save(); renderAll(); toast("Datos borrados"); } };
+  $("#themeBtn").onclick = () => {
+    const r = document.documentElement; const dark = r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    r.dataset.theme = dark ? "light" : "dark"; try { localStorage.setItem(KEY + ".theme", r.dataset.theme); } catch (e) {}
+    if ($("#dash").classList.contains("active")) renderDash();
+  };
+}
+
+load();
+try { const th = localStorage.getItem(KEY + ".theme"); if (th) document.documentElement.dataset.theme = th; } catch (e) {}
+initForms();
+renderAll();
+try { const tab = localStorage.getItem(KEY + ".tab"); if (tab) document.querySelector(`#tabs button[data-tab="${tab}"]`)?.click(); } catch (e) {}
+</script>
+</body>
+</html>
