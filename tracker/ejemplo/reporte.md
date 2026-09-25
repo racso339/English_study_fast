@@ -4,73 +4,80 @@
 
 | Métrica | Valor |
 |---|---|
-| Horas totales registradas | **118.6 h** |
-| Horas últimos 28 días | 40.3 h (24/28 días activos) |
-| Promedio diario (28 días) | 86 min (meta: 90 min) |
-| Cumplimiento de la meta (28 días) | 96 % |
-| Racha actual | 21 días |
-| Palabras leídas (total / este mes) | 262,797 / 86,139 |
+| Horas de estudio activo (total) | **109,7 h** |
+| Horas de estudio activo (últimos 28 días) | 34,4 h (23/28 días activos) |
+| Promedio diario (últimos 28 días) | 74 min (meta: 90 min) |
+| Cumplimiento de la meta | 82 % |
+| Racha actual | 2 días |
+| Escucha pasiva extra (últimos 28 días / total) | 9,2 h / 29,5 h |
+| Palabras leídas (total / este mes) | 216.642 / 65.038 |
 
-## Tiempo por habilidad (últimos 28 días)
+## Tiempo activo por habilidad (últimos 28 días)
 
-Referencia del plan: input (reading + listening) ≈ 50 %, output (speaking + writing) ≈ 25 %, vocabulary ≈ 15 %, grammar ≈ 10 %.
-
-```
-speaking    ██████████████░░░░░░░░░░   6.2 h    15 %
-writing     ████████░░░░░░░░░░░░░░░░   3.6 h     9 %
-listening   █████████████████████░░░   9.6 h    24 %
-reading     ████████████████████████  11.1 h    27 %
-grammar     ██████░░░░░░░░░░░░░░░░░░   2.7 h     7 %
-vocabulary  ████████████████░░░░░░░░   7.2 h    18 %
-```
-
-## Horas por semana (últimas 8)
+Objetivo del plan (4 hilos de Nation): input (reading + listening) ≈ 37,5 %, output (speaking + writing) ≈ 37,5 %, vocabulary ≈ 15 %, grammar ≈ 10 %.
 
 ```
-2026-08-03 █████████████████████░░░  10.4 h
-2026-08-10 ████████████████████░░░░  10.0 h
-2026-08-17 █████████████████████░░░  10.3 h
-2026-08-24 █████████░░░░░░░░░░░░░░░   4.6 h
-2026-08-31 ████████████████████░░░░   9.8 h
-2026-09-07 ████████████████████████  11.8 h
-2026-09-14 ████████████████████████  11.7 h
-2026-09-21 ██████████████░░░░░░░░░░   7.0 h
-(meta semanal: 10.5 h)
+speaking    ██████████████████████░░   7,8 h   23 %
+writing     ██████████░░░░░░░░░░░░░░   3,6 h   11 %
+listening   ████████████████░░░░░░░░   5,8 h   17 %
+reading     ████████████████████████   8,7 h   25 %
+grammar     █████░░░░░░░░░░░░░░░░░░░   1,7 h    5 %
+vocabulary  ███████████████████░░░░░   6,7 h   20 %
 ```
 
-## Nivel por habilidad (última evaluación)
+## Horas activas por semana (últimas 8)
+
+```
+2026-08-03 ████████████████████░░░░   8,9 h
+2026-08-10 ████████████░░░░░░░░░░░░   5,4 h
+2026-08-17 ████████████████████████  10,5 h
+2026-08-24 ████████████████████████  10,7 h
+2026-08-31 ████████████████░░░░░░░░   7,0 h
+2026-09-07 ██████████████████████░░   9,6 h
+2026-09-14 ████████████████████████  10,6 h
+2026-09-21 ████████████░░░░░░░░░░░░   5,4 h
+(meta semanal: 10,5 h)
+```
+
+## Nivel por habilidad (última evaluación, sin autoevaluaciones)
 
 | Habilidad | MCER | Prueba | Puntaje | Fecha |
 |---|---|---|---|---|
-| general | **B2** | EF SET 50 | 57 | 2026-09-23 |
-| speaking | **B1+** | Speaking grabado | 104 | 2026-09-24 |
+| general | **B1** | EF SET 50 | 48 | 2026-09-23 |
+| speaking | **B1+** | Speaking grabado | 90 | 2026-09-24 |
 | writing | **B1+** | Write & Improve | — | 2026-09-24 |
-| listening | **B1+** | EF SET 50 | 54 | 2026-09-23 |
-| reading | **B2** | EF SET 50 | 60 | 2026-09-23 |
-| vocabulary | **B1+** | Vocabulary Size Test | 4400 | 2026-08-26 |
+| listening | **B1** | EF SET 50 | 45 | 2026-09-23 |
+| reading | **B2** | EF SET 50 | 52 | 2026-09-23 |
 
-### Evolución de puntajes
+### Evolución por prueba
 
-| Prueba | Habilidad | Primero | Último | Cambio | N |
+| Prueba | Habilidad | Primera | Última | Cambio | N |
 |---|---|---|---|---|---|
-| EF SET 50 | general | 44 B1 (2026-07-01) | 57 B2 (2026-09-23) | +13 | 4 |
-| EF SET 50 | listening | 54 B1+ (2026-09-23) | 54 B1+ (2026-09-23) | +0 | 1 |
-| EF SET 50 | reading | 60 B2 (2026-09-23) | 60 B2 (2026-09-23) | +0 | 1 |
-| Speaking grabado | speaking | 78 A2+ (2026-07-02) | 104 B1+ (2026-09-24) | +26 | 4 |
-| Vocabulary Size Test | vocabulary | 3800 B1 (2026-07-01) | 4400 B1+ (2026-08-26) | +600 | 2 |
+| Autoevaluación MCER | general | B1 (2026-07-02) | B1 (2026-07-02) | — | 1 |
+| EF SET 50 | general | 44 B1 (2026-07-01) | 48 B1 (2026-09-23) | +4 | 4 |
+| EF SET 50 | listening | 42 B1 (2026-07-01) | 45 B1 (2026-09-23) | +3 | 2 |
+| EF SET 50 | reading | 46 B1 (2026-07-01) | 52 B2 (2026-09-23) | +6 | 2 |
+| Speaking grabado | speaking | 78 B1 (2026-07-02) | 90 B1+ (2026-09-24) | +12 | 4 |
+| Vocabulary Size Test | vocabulary | 3800 (2026-07-01) | 4300 (2026-08-26) | +500 | 2 |
+| Write & Improve | writing | B1 (2026-07-02) | B1+ (2026-09-24) | +1 subnivel(es) | 4 |
+
+Cambios pequeños entre dos mediciones pueden ser ruido (error de medida, efecto práctica): fíjate en la tendencia de 3 o más.
 
 ## Proyección hacia C1
 
-- Habilidad más débil: **B1+** → referencia Cambridge ≈ 462 h guiadas acumuladas.
-- Horas registradas desde la última evaluación: 0.0 h.
-- Horas guiadas equivalentes que faltan para C1 (≈ 750 h): **288 h**.
-- A tu ritmo actual (86 min/día): **2027-05 – 2027-09** (8–12 meses).
-- *Estimación orientativa*: las horas de Cambridge son guiadas; el rango aplica un factor de autoestudio de 1.2–1.8. La escucha pasiva extra y la constancia pueden adelantarla. Re-evalúa cada 4 semanas.
+**Modelo de horas.** Habilidad más débil: **listening B1** (EF SET 50, 2026-09-23) → referencia Cambridge ≈ 375 h guiadas acumuladas.
+- Horas de estudio activo desde esa evaluación: 1,7 h.
+- Faltan ≈ **373 h guiadas equivalentes** para C1 (≈ 750 h). A tu ritmo (74 min/día): **2027-09 – 2028-03** (12–18 meses).
+
+**Tendencia EF SET** (solo comprensión: reading + listening; 4 mediciones): +1,5 puntos/mes, estimado hoy ≈ 48 → C1 (61) hacia **2027-06**.
+
+> Estimaciones orientativas. El modelo de horas usa las horas guiadas de Cambridge × un factor de autoestudio de 1,2–1,8 (supuesto). La tendencia es una extrapolación lineal: suele ser optimista porque el avance se frena en niveles altos. Lo que manda son tus evaluaciones mensuales.
 
 ## Próximas evaluaciones sugeridas
 
-- EF SET 50: 2026-10-21 (en 26 días)
+- EF SET: 2026-10-21 (en 26 días)
 - Write & Improve: 2026-10-22 (en 27 días)
 - Speaking grabado: 2026-10-22 (en 27 días)
 - Vocabulary Size Test: 2026-10-21 (en 26 días)
+- Autoevaluación MCER: 2026-10-01 (en 6 días)
 

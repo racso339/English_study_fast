@@ -1,6 +1,6 @@
 # Catálogo de materiales gratuitos
 
-> Leyenda: 🟢 gratis por completo · 🟡 freemium (la versión gratis basta para el plan) · ✔ verificado en la investigación (sep-2026) · ○ recurso conocido, no re-verificado en esta sesión (confirma que sigue disponible).
+> Leyenda: 🟢 gratis por completo · 🟡 freemium (la versión gratis basta para el plan) · ✔ verificado con búsqueda en sep-2026 · ○ recurso conocido, no verificado (el entorno de la investigación bloqueaba muchas webs; confirma que sigue disponible).
 > Nivel sugerido entre corchetes. Cómo usarlos: [`plan/plan_de_estudio.md`](../plan/plan_de_estudio.md).
 
 ## 1. Diagnóstico y medición
@@ -23,8 +23,8 @@
 |---|---|---|---|
 | [Anki](https://apps.ankiweb.net/) | Repetición espaciada. **Activa FSRS** (Opciones del mazo → FSRS). Gratis en escritorio, Android y web; la app de iOS es de pago. | 🟢 | ✔ |
 | [AnkiWeb – mazos compartidos](https://ankiweb.net/shared/decks) | Busca "4000 Essential English Words", "NGSL", "Academic Word List" | 🟢 | ○ |
-| [NGSL / NAWL (New General Service List)](https://www.newgeneralservicelist.com/) | Listas de frecuencia: general (2.800 palabras) y académica | 🟢 | ○ |
-| [Academic Word List (Coxhead)](https://www.wgtn.ac.nz/lals/resources/academicwordlist) | 570 familias académicas (clave para C1; muchos cognados) | 🟢 | ○ |
+| [NGSL / NAWL (New General Service List)](https://www.newgeneralservicelist.org/) | Listas de frecuencia: general (2.809 palabras, v1.2 de 2023) y académica | 🟢 | ✔ |
+| [Academic Word List (Coxhead)](https://www.wgtn.ac.nz/lals/resources/academicwordlist) | 570 familias académicas en 10 sublistas (clave para C1; muchos cognados) | 🟢 | ✔ |
 | [Tatoeba](https://tatoeba.org/) | Frases de ejemplo EN↔ES para tus tarjetas | 🟢 | ○ |
 | [Ozdic – Collocations dictionary](https://ozdic.com/) | Colocaciones (*make a decision*, *heavy rain*) | 🟢 | ○ |
 
@@ -77,7 +77,7 @@
 | Tandem / HelloTalk | Intercambio de idiomas: enseñas español, practicas inglés | 🟡 | ○ |
 | [Conversation Exchange](https://www.conversationexchange.com/) | Encontrar compañeros para videollamada | 🟢 | ○ |
 | Servidores de Discord para aprender inglés, r/language_exchange | Canales de voz y compañeros | 🟢 | ○ |
-| Chatbot de IA con modo voz (ChatGPT, Claude, Gemini…) | Volumen diario de conversación. Prompt sugerido abajo | 🟡 | ✔ (evidencia: §5.2 de la investigación) |
+| Chatbot de IA con modo voz (ChatGPT, Claude, Gemini…) | Volumen diario de conversación (hilo de output). Prompt sugerido abajo | 🟡 | ✔ (evidencia baja-moderada: §5.2 de la investigación) |
 | Grabadora del móvil | 4/3/2, shadowing y autoevaluación con la rúbrica | 🟢 | — |
 
 **Prompt sugerido para practicar speaking con IA:**
@@ -87,8 +87,9 @@ Keep your turns short (2-3 sentences) and ask me follow-up questions.
 Do NOT correct me during the conversation. When I say "feedback", give me:
 1) my 5 most important errors with the corrected version,
 2) 5 more natural phrases or collocations I could have used,
-3) an estimated CEFR level for fluency, accuracy and vocabulary range.
+3) one thing I did well.
 ```
+> ⚠️ No le pidas a la IA tu "nivel MCER" para registrarlo: esas estimaciones no están validadas. Para medir, usa las pruebas y rúbricas de [`tracker/rubricas.md`](../tracker/rubricas.md).
 
 ## 7. Writing
 
@@ -96,16 +97,17 @@ Do NOT correct me during the conversation. When I say "feedback", give me:
 |---|---|---|---|
 | [Write & Improve](https://writeandimprove.com/) | Feedback + nivel MCER; progreso gráfico | 🟢 | ✔ |
 | [LanguageTool](https://languagetool.org/) | Corrector gramatical y de estilo | 🟡 | ○ |
-| Chatbot de IA | Feedback detallado. Pídele **que marque sin corregir** primero, para autocorregirte (las *prompts* funcionan mejor que la corrección directa) | 🟡 | ✔ |
+| Chatbot de IA | Feedback detallado. Pídele **que marque sin corregir** primero, para autocorregirte (las *prompts* funcionan mejor que la corrección directa). Puede equivocarse: contrasta las correcciones dudosas con un diccionario | 🟡 | ✔ |
 | Muestras oficiales de C1 Advanced Writing (Cambridge) | Ejemplos de ensayo, informe, propuesta y reseña con comentarios del examinador | 🟢 | ✔ |
 
 **Prompt sugerido para writing:**
 ```
 Here is my text (target level: [C1], task: [essay]). Step 1: underline each error with a code
 (G=grammar, V=vocabulary, P=punctuation, C=coherence) but DO NOT correct it.
-I will try to fix them. Step 2: after my attempt, give corrections, a CEFR estimate and
+I will try to fix them. Step 2: after my attempt, give the corrections and
 3 ways to upgrade the vocabulary and cohesion.
 ```
+> El paso 1 aplica la evidencia sobre feedback: intentar autocorregirte antes de ver la corrección (Lyster & Saito, 2010). Para el **nivel** de tu texto usa Write & Improve, no la IA.
 
 ## 8. Grammar
 
@@ -113,11 +115,11 @@ I will try to fix them. Step 2: after my attempt, give corrections, a CEFR estim
 |---|---|---|---|
 | [British Council LearnEnglish – Grammar](https://learnenglish.britishcouncil.org/grammar) | A1–C1, explicación + ejercicios por nivel | 🟢 | ○ |
 | [Perfect English Grammar](https://www.perfect-english-grammar.com/) | A2–C1, explicaciones claras + ejercicios | 🟢 | ○ |
-| [English Grammar Profile (Cambridge)](https://www.englishprofile.org/english-grammar-profile) | Qué estructuras corresponden a cada nivel MCER | 🟢 | ○ |
+| [English Grammar Profile (Cambridge)](https://englishprofile.org/?menu=egp-online) | Base de datos con 1.200+ estructuras y el nivel MCER en que se dominan | 🟢 | ✔ |
 | [English Page](https://www.englishpage.com/) | Tiempos verbales, ejercicios | 🟢 | ○ |
 | BBC Learning English – *Grammar Reference* | A2–B2 | 🟢 | ○ |
 
 ## 9. Herramientas de organización
 
 - **Este repo:** [`tracker/index.html`](../tracker/index.html) (web app) + [`tracker/progress.py`](../tracker/progress.py) (reportes).
-- [Text Inspector](https://textinspector.com/) (🟡) / [Oxford Text Checker](https://www.oxfordlearnersdictionaries.com/text-checker/) (○): comprueban el nivel MCER del vocabulario de un texto, útil para elegir lecturas o evaluar tu writing.
+- [Oxford Text Checker](https://www.oxfordlearnersdictionaries.com/text-checker/) (🟢 ✔) / [Text Inspector](https://textinspector.com/) (🟡 ○): colorean el vocabulario de un texto según su nivel MCER (listas Oxford 3000/5000), útil para elegir lecturas al nivel adecuado.

@@ -1,156 +1,189 @@
 # Plan de estudio: de tu nivel actual a C1
 
-> Basado en [`research/investigacion_profunda.md`](../research/investigacion_profunda.md). Diseñado para **1–2 h/día**, adulto hispanohablante.
-> Materiales: [`resources/materiales_gratuitos.md`](../resources/materiales_gratuitos.md) · Seguimiento: [`tracker/`](../tracker/README.md)
+> **Versión 2** · Basado en [`research/investigacion_profunda.md`](../research/investigacion_profunda.md) · Pensado para **1–2 h/día**, adulto hispanohablante.
+> Materiales: [`resources/materiales_gratuitos.md`](../resources/materiales_gratuitos.md) · Medición: [`tracker/`](../tracker/README.md) · Protocolos: [`tracker/rubricas.md`](../tracker/rubricas.md)
 
-## Principios del plan (resumen de la evidencia)
+## Principios del plan
 
-1. **Input masivo** (≈ 50 % del tiempo): leer y escuchar material que entiendes al 95–98 %.
-2. **Recuperación + repetición espaciada** (≈ 15 %): Anki con FSRS todos los días, sin excepción.
-3. **Output con feedback** (≈ 25 %): hablar y escribir desde el día 1; corregir y rehacer.
-4. **Gramática explícita dosificada** (≈ 10 %): regla breve → práctica → uso en tareas.
-5. **Medir cada 4 semanas y ajustar.** Lo que no se mide, no mejora.
+El plan sigue los **4 hilos de Nation (2007)**: repartir el tiempo **aproximadamente por igual** entre cuatro tipos de trabajo.
+
+| Hilo | Qué es | Ejemplos | Se registra como |
+|---|---|---|---|
+| 🎧 **Input con significado** | Leer y escuchar para entender, con 95–98 % de comprensión | Graded readers, podcasts, series | reading · listening |
+| 🗣️ **Output con significado** | Hablar y escribir para comunicar, **con feedback** | Conversación, textos corregidos y reescritos | speaking · writing |
+| 🔧 **Aprendizaje centrado en el lenguaje** | Estudiar la lengua de forma explícita | Anki (FSRS), gramática, pronunciación, dictado | vocabulary · grammar · speaking/listening |
+| ⚡ **Desarrollo de la fluidez** | Usar lo que ya sabes, más rápido y con material fácil | Lectura rápida, 4/3/2, escritura cronometrada, audio conocido | reading · speaking · writing · listening |
+
+**Objetivo de reparto del tiempo activo:** input ≈ 37,5 % · output ≈ 37,5 % · vocabulario ≈ 15 % · gramática ≈ 10 %. El tracker te avisa si te desvías mucho.
+
+**Escucha pasiva** (en el bus, cocinando, haciendo ejercicio): suma exposición, pero **no** cuenta para la meta diaria. Regístrala con modo `pasivo`.
 
 ---
 
-## Fase 0 — Diagnóstico (semana 1, ~3–4 h en total)
+## Fase 0: Diagnóstico (semana 1, ~3–4 h en total)
 
-Como no conoces tu nivel, empieza aquí. Registra **todos** los resultados en el tracker (`evaluaciones`).
+Registra **todos** los resultados en el tracker (pestaña *Evaluaciones* o `python tracker/progress.py test …`).
 
 | # | Prueba | Mide | Dónde | Tiempo |
 |---|---|---|---|---|
-| 1 | **EF SET 50** (reading + listening) | Nivel MCER receptivo | efset.org/ef-set-50 | 50 min |
-| 2 | **Test de tamaño de vocabulario** (VST 1–14k) | Familias de palabras conocidas | lextutor.ca/tests/vst | 30–40 min |
-| 3 | **Write & Improve**: 1 texto de 150–250 palabras | Nivel MCER de writing | writeandimprove.com | 30 min |
-| 4 | **Grabación de speaking**: 2 min sobre "Describe your job/studies and your plans" | Fluidez, precisión, pronunciación | Grabadora del móvil | 10 min |
-| 5 | **Autoevaluación MCER** (rejilla del Consejo de Europa) | Percepción por destreza | Europass (PDF) + [`tracker/rubricas.md`](../tracker/rubricas.md) | 20 min |
+| 1 | **EF SET 50** | Reading + listening → MCER | efset.org/ef-set-50 | 50 min |
+| 2 | **Vocabulary Size Test** | Familias de palabras (indicador, no nivel) | lextutor.ca/tests/vst | 30–40 min |
+| 3 | **Write & Improve**: 1 texto de 150–250 palabras | Nivel MCER del writing | writeandimprove.com | 30 min |
+| 4 | **Speaking grabado**: 2 min en inglés **+ 1 min en español** sobre un tema similar | Fluidez (palabras por minuto, pausas), precisión, pronunciación | Grabadora del móvil + rúbrica | 15 min |
+| 5 | **Autoevaluación MCER** | Tu percepción por destreza | Rejilla de Europass | 20 min |
 
-**Cómo calcular el speaking en la grabación:** transcribe 1 minuto (usa la transcripción automática del móvil o del navegador y revísala). Cuenta las **palabras por minuto** (PPM) y las **pausas largas** (> 1 s). Evalúa con la rúbrica de `tracker/rubricas.md`.
+**Escala de EF SET** (0–100): 31–40 A2 · 41–50 B1 · 51–60 B2 · 61–70 C1 · 71+ C2.
 
-**Decide tu fase de inicio** con el resultado de EF SET y el vocabulario:
+**Elige tu fase de inicio** con la destreza **más débil** de las pruebas 1, 3 y 4 (el vocabulario y la autoevaluación no deciden):
 
-| Resultado | Empieza en |
+| Destreza más débil | Empieza en |
 |---|---|
-| A1–A2 o < 2.500 familias | **Fase 1** |
-| B1 o 2.500–5.000 familias | **Fase 2** |
-| B2 o > 5.000 familias | **Fase 3** |
+| A1–A2 | **Fase 1** |
+| B1 | **Fase 2** |
+| B2 | **Fase 3** |
 
-> Si las destrezas están desniveladas (típico: reading B2, speaking B1), sigue la fase de tu destreza **más baja** en esa destreza y la de las más altas en el resto.
+> Si tus destrezas están desniveladas (lo típico es reading B2 y speaking B1), trabaja cada destreza con el material de su propio nivel y usa la fase de la más débil para la rutina general.
 
 ---
 
-## Fase 1 — Fundamentos (A1/A2 → B1) · ~4–8 meses
+## Duración estimada de cada fase
 
-**Objetivo:** 2.500–3.000 familias de palabras, gramática base, pronunciación inteligible, entender audio lento.
+Con 1,5 h/día de estudio activo, según el modelo de la investigación (§9). Con 1 h/día, multiplica por 1,5; con 2 h/día, por 0,75.
 
-| Área | Qué hacer |
-|---|---|
-| Vocabulario | Anki: mazo de las 2.000–3.000 palabras más frecuentes **en frases** (no palabras sueltas). 10–15 nuevas/día. Tarjetas de producción (ES→EN) además de las de reconocimiento. |
-| Grammar | Una estructura por sesión (15 min): tiempos verbales, preguntas con *do/does/did*, sujeto obligatorio, comparativos, *there is/are*, modales. Fuente: British Council LearnEnglish / Perfect English Grammar + ejercicios. Añade 2–3 tarjetas cloze por tema. |
-| Pronunciation | 2–3 sesiones/semana: vocales cortas vs. largas (*ship/sheep*), /ə/ schwa, consonantes finales, *-ed* y *-s*, acento de palabra. Fuente: BBC Learning English Pronunciation + YouGlish. |
-| Reading | **Graded readers** nivel 1–3, 20 min/día. Meta: 30.000–50.000 palabras/mes. |
-| Listening | ELLLO (A2–B1), BBC 6 Minute English con transcripción. Ciclo: escuchar → leer la transcripción → escuchar otra vez. |
-| Speaking | Shadowing 10 min/día con audios de graded readers. Hablar solo: describir tu día en voz alta. Chatbot de IA con voz 2–3×/semana. |
-| Writing | 3×/semana, 80–120 palabras (diario, correo). Corrige con Write & Improve → **reescribe**. |
+| Fase | Tramo | Horas guiadas de referencia | Duración a 1,5 h/día |
+|---|---|---|---|
+| 1 | A1 → A2 → B1 | 95 + 185 | ~2,5–4 + 5–7 meses (solo 5–7 si ya empiezas en A2) |
+| 2 | B1 → B2 | 175 | ~5–7 meses |
+| 3 | B2 → C1 | 200 | ~5–8 meses |
 
-**Criterio para pasar a Fase 2:** EF SET ≥ B1 **y** vocabulario ≥ 2.500 familias **y** puedes hablar 2 min seguidos sobre un tema conocido.
+Es una estimación orientativa: horas guiadas de Cambridge × factor de autoestudio 1,2–1,8 (supuesto declarado). El tracker la recalcula con **tu** ritmo real y tus evaluaciones.
 
 ---
 
-## Fase 2 — Consolidación (B1 → B2) · ~5–9 meses
+## Fase 1: Fundamentos (A1/A2 → B1)
 
-**Objetivo:** 5.000 familias, entender series y podcasts para nativos con subtítulos, conversar con fluidez sobre temas generales, escribir textos argumentativos de 250 palabras.
+**Objetivo:** vocabulario frecuente, gramática básica, pronunciación inteligible y entender audio lento.
 
-| Área | Qué hacer |
+| Hilo | Qué hacer |
 |---|---|
-| Vocabulario | Anki: palabras 3.000–5.000 + **colocaciones y phrasal verbs** que encuentres leyendo (minado de frases). 10–15 nuevas/día. |
-| Grammar | Condicionales, pasiva, estilo indirecto, relativos, *present perfect* continuo, modales de deducción, *used to / would*. Registrar los errores recurrentes propios en tarjetas. |
-| Reading | Graded readers nivel 4–6 → novelas juveniles y artículos sencillos (News in Levels, VOA Learning English). Meta: **100.000+ palabras/mes**. |
-| Listening | Podcasts para estudiantes B1–B2 → series con subtítulos en inglés. 1 sesión intensiva/semana: **dictado** de 1–2 minutos. Ciclo metacognitivo (predecir → escuchar → verificar → reflexionar). |
-| Speaking | **4/3/2** 3×/semana. Shadowing 10 min/día. **Intercambio de idiomas o tutor 1–2×/semana** (Tandem/HelloTalk/Discord). IA para el volumen diario (pídele que te corrija al final, no en cada frase). |
-| Writing | 2–3×/semana, 150–250 palabras: opinión, correo formal, reseña. Feedback de Write & Improve + IA → reescritura. Lista personal de errores. |
+| 🔧 Lenguaje | **Anki:** las 2.000–3.000 palabras más frecuentes **en frases** (NGSL / Oxford 3000). 10–15 nuevas/día, con tarjetas de producción ES→EN además de las de reconocimiento. **Gramática** 10 min: una estructura por sesión (tiempos verbales, preguntas con *do/does/did*, sujeto obligatorio, comparativos, *there is/are*, modales) + 2–3 tarjetas cloze. **Pronunciación** 2×/semana: vocales cortas y largas (*ship/sheep*), schwa, consonantes finales, *-ed* y *-s*, acento de palabra. |
+| 🎧 Input | **Graded readers** de niveles 1–3 (meta: 30.000–50.000 palabras/mes) + ELLLO o *6 Minute English* con transcripción: escuchar → leer la transcripción → volver a escuchar. |
+| 🗣️ Output | Chatbot de IA con voz 2–3×/semana. Escritura 3×/semana: 80–120 palabras (diario, correo) → Write & Improve → **reescritura**. |
+| ⚡ Fluidez | Releer un graded reader ya leído, un poco más rápido. Shadowing de audios conocidos. Describir tu día en voz alta en 2 minutos. |
 
-**Criterio para pasar a Fase 3:** EF SET ≥ B2 **y** vocabulario ≥ 5.000 **y** Write & Improve ≥ B2 **y** puedes mantener 20 min de conversación con un nativo sin pasarte al español.
+**Pasas a la Fase 2 cuando:** EF SET ≥ 41 (B1) **+** Write & Improve ≥ B1 **+** speaking con rúbrica ≥ B1 (hablas 2 min seguidos sobre un tema conocido).
+*Indicador de apoyo (no requisito):* ~3.000 familias de palabras, que dan ≈ 95 % de cobertura en conversación.
 
 ---
 
-## Fase 3 — Maestría (B2 → C1) · ~6–10 meses
+## Fase 2: Consolidación (B1 → B2)
 
-**Objetivo:** 8.000+ familias, entender contenido nativo sin subtítulos, expresarte con precisión y matiz, escribir ensayos/informes C1.
+**Objetivo:** entender series y podcasts para nativos con subtítulos, conversar con fluidez sobre temas generales y escribir textos argumentativos de ~250 palabras.
 
-| Área | Qué hacer |
+| Hilo | Qué hacer |
 |---|---|
-| Vocabulario | **Vocabulario académico** (AWL/AVL; aprovecha los cognados), colocaciones avanzadas, *hedging* (*it could be argued*, *to some extent*), registros formal/informal. 10 nuevas/día + las del minado. |
-| Grammar | Inversión (*Not only… / Rarely…*), *cleft sentences*, participios, subjuntivo, *mixed conditionals*, cohesión y conectores. Práctica tipo *Use of English* C1. |
-| Reading | Material auténtico: The Guardian, BBC Future, Aeon, The Conversation, libros de no ficción. Meta: **150.000+ palabras/mes**. 1 texto intensivo/semana (análisis del lenguaje). |
-| Listening | Podcasts nativos a velocidad real (TED, BBC Radio 4, NPR), acentos variados. Series sin subtítulos o con subtítulos en inglés. Dictado semanal de audio rápido. |
-| Speaking | Debates y exposiciones de 3–5 min grabados (tipo examen C1 parte 2). 4/3/2 sobre temas abstractos. 2 conversaciones/semana con humanos. Revisar la grabación con la rúbrica. |
-| Writing | 2×/semana, 220–260 palabras: **ensayo, informe, propuesta, reseña** (formatos C1 Advanced). Evaluar con la rúbrica C1 + Write & Improve. |
-| Examen | Desde el mes 3 de la fase: 1 simulacro parcial cada 2 semanas; 1 completo al mes (muestras oficiales gratuitas de Cambridge). |
+| 🔧 Lenguaje | **Anki:** palabras 3.000–5.000 + **colocaciones y phrasal verbs** sacados de tus lecturas (minado de frases), 10–15/día. **Gramática:** condicionales, pasiva, estilo indirecto, relativos, *present perfect continuous*, modales de deducción, *used to/would*. **Dictado** semanal de 1–2 min. **Lista personal de errores** en Anki. |
+| 🎧 Input | Graded readers de niveles 4–6 → novelas juveniles y artículos sencillos (VOA, News in Levels). **Meta: 100.000+ palabras/mes**. Podcasts de nivel B1–B2 → series con subtítulos en inglés. **Rinde cuentas:** resume cada libro o episodio en 2–3 líneas (en el campo *notas* del tracker). |
+| 🗣️ Output | **Intercambio de idiomas o tutor 1–2×/semana** (humano). IA para el volumen diario: pide la corrección al final, no en cada frase. Writing 2×/semana, 150–250 palabras (opinión, correo formal, reseña) → feedback → reescritura. |
+| ⚡ Fluidez | **4/3/2** 3×/semana. Escritura cronometrada de 10 min 2×/semana. Lectura rápida de material fácil. |
 
-**Criterio de "C1 alcanzado":** EF SET 4-skill ≥ C1 **y** vocabulario ≥ 8.000 **y** simulacro C1 ≥ 180 en la Cambridge English Scale (o ≥ 60 % por parte) **y** rúbricas de speaking/writing en C1 en 2 evaluaciones consecutivas.
+**Pasas a la Fase 3 cuando:** EF SET ≥ 51 (B2) **+** Write & Improve ≥ B2 **+** speaking con rúbrica ≥ B2 (20 min de conversación sin pasarte al español).
+*Indicador de apoyo:* ~5.000–6.000 familias.
+
+---
+
+## Fase 3: Maestría (B2 → C1)
+
+**Objetivo:** entender contenido nativo sin subtítulos y expresarte con precisión y matiz, con textos de nivel C1.
+
+| Hilo | Qué hacer |
+|---|---|
+| 🔧 Lenguaje | **Vocabulario académico** (AWL / NAWL: muchos son cognados), colocaciones avanzadas, *hedging* (*it could be argued*, *to some extent*), registro formal e informal. **Gramática:** inversión (*Not only… / Rarely…*), *cleft sentences*, participios, *mixed conditionals*, cohesión. Práctica tipo *Use of English* C1. |
+| 🎧 Input | Material auténtico: The Guardian, BBC Future, Aeon, The Conversation, no ficción (**meta: 150.000+ palabras/mes**). Podcasts nativos a velocidad real con acentos variados (BBC Radio 4, NPR, TED). Series sin subtítulos o con subtítulos en inglés. |
+| 🗣️ Output | Exposiciones y debates de 3–5 min grabados (tipo parte 2 del examen C1). 2 conversaciones/semana con personas. Writing 2×/semana, 220–260 palabras: **ensayo, informe, propuesta, reseña** (formatos de C1 Advanced). |
+| ⚡ Fluidez | 4/3/2 sobre temas abstractos, escritura cronometrada y lectura rápida de textos B2. |
+| 📝 Examen | Desde el tercer mes de la fase: 1 simulacro parcial cada 2 semanas y 1 completo al mes (muestras oficiales gratuitas de Cambridge). |
+
+**Criterio de "C1 alcanzado"** (todas):
+- EF SET 4-skill con resultado **C1 en las 4 destrezas**;
+- simulacro completo de C1 Advanced **aprobado** (≥ 180 en la Cambridge English Scale según la tabla de conversión de la muestra; ≈ 60 % es una orientación, no una regla oficial);
+- rúbricas de speaking y writing en C1 en **2 evaluaciones seguidas**, con una segunda opinión (tutor o compañero).
+
+*Indicador de apoyo:* 6.000–8.000+ familias (98 % de cobertura oral y escrita).
 
 ---
 
 ## Rutina diaria
 
-### Versión 60 min (días ocupados, mínimo innegociable)
+### 120 minutos: 4 hilos × 30 min
 
-| Min | Actividad | Destreza |
+| Bloque (hilo) | Min | Actividad | Registrar como |
+|---|---|---|---|
+| 🔧 Lenguaje | 20 | Anki (repasos + nuevas) | vocabulary |
+| | 10 | Gramática (lunes, miércoles, viernes) o pronunciación/shadowing (martes, jueves) | grammar / speaking |
+| 🎧 Input | 15 | Lectura extensiva | reading |
+| | 15 | Escucha extensiva | listening |
+| 🗣️ Output | 30 | Conversación **o** texto con feedback + reescritura (ver plantilla semanal) | speaking / writing |
+| ⚡ Fluidez | 10 | Lectura rápida de texto muy fácil | reading |
+| | 5 | Audio ya conocido o fácil | listening |
+| | 15 | 4/3/2 (lunes, miércoles, viernes) o escritura cronometrada (martes, jueves) | speaking / writing |
+
+Resultado aproximado: input 37,5 % · output 37,5 % · vocabulario ~17 % · gramática ~8 %.
+
+### 60 minutos: versión mínima (días difíciles)
+
+| Min | Hilo | Actividad |
 |---|---|---|
-| 15 | Anki (repasos + nuevas) | vocabulary |
-| 25 | Input: lectura extensiva **o** escucha (alternar días) | reading / listening |
-| 10 | Shadowing o 4/3/2 | speaking |
-| 10 | Gramática del día **o** writing breve | grammar / writing |
+| 15 | 🔧 Lenguaje | Anki |
+| 15 | 🎧 Input | Lectura **o** escucha extensiva (alterna los días) |
+| 15 | 🗣️ Output | Conversación con IA o texto breve con feedback |
+| 15 | ⚡ Fluidez / 🔧 | 4/3/2 o lectura rápida (alterna) o gramática |
 
-### Versión 120 min (días normales)
-
-| Min | Actividad | Destreza |
-|---|---|---|
-| 20 | Anki | vocabulary |
-| 30 | Lectura extensiva | reading |
-| 30 | Escucha (extensiva; 1×/semana intensiva con dictado) | listening |
-| 15 | Gramática explícita + ejercicios | grammar |
-| 15 | Speaking: shadowing + 4/3/2 **o** conversación | speaking |
-| 10 | Writing (o 30 min los días de writing largo, quitándolos de la lectura) | writing |
-
-**Truco de tiempo muerto:** la escucha extensiva (podcasts en el transporte, el ejercicio o las tareas de casa) **no cuenta** dentro de tus 1–2 h, pero regístrala: es una de las mayores palancas para acortar el camino.
+> **La regla de oro:** un día de 60 min vale más que saltarse el día. La constancia es la variable que más pesa.
 
 ## Plantilla semanal (120 min/día)
 
-| Día | Foco extra |
-|---|---|
-| Lunes | Writing largo (ensayo/texto de la fase) |
-| Martes | Conversación con humano o tutor (30 min) |
-| Miércoles | Dictado / escucha intensiva |
-| Jueves | Writing: **reescritura** del texto del lunes con feedback |
-| Viernes | Conversación con humano o IA + grabación 4/3/2 |
-| Sábado | Sesión larga de input (serie/película/libro) — por placer |
-| Domingo | **Revisión semanal:** `python tracker/progress.py`, revisar la lista de errores, planear la semana. Descanso parcial (solo Anki). |
+El foco de cada día **va dentro** de los bloques de output y fluidez: no suma tiempo.
+
+| Día | 🗣️ Output (30′) | ⚡ Fluidez (15′) |
+|---|---|---|
+| Lunes | Writing largo (texto de tu fase) | 4/3/2 |
+| Martes | Conversación con persona o tutor | Escritura cronometrada |
+| Miércoles | Conversación con IA; en input, escucha intensiva con dictado | 4/3/2 |
+| Jueves | **Reescritura** del texto del lunes + lista de errores | Escritura cronometrada |
+| Viernes | Conversación grabada (persona o IA) | 4/3/2 |
+| Sábado | Opcional: sesión larga de input por placer (serie, película, libro) | — |
+| Domingo | **Revisión semanal** (15 min): `python tracker/progress.py` o el dashboard; repasar la lista de errores; planear la semana. Solo Anki. | — |
 
 ## Ciclo de medición
 
-| Frecuencia | Qué medir | Registro |
+| Frecuencia | Qué medir | Dónde se registra |
 |---|---|---|
-| Diario | Minutos por destreza, palabras leídas, minutos escuchados, tarjetas | `sesiones` |
-| Semanal | Horas totales vs. meta, racha, errores recurrentes | `python tracker/progress.py` |
-| Cada 4 semanas | EF SET 50 · Write & Improve · grabación de speaking (PPM + rúbrica) | `evaluaciones` |
-| Cada 8 semanas | Test de tamaño de vocabulario | `evaluaciones` |
-| Cada 3 meses | EF SET 4-skill o simulacro completo del nivel objetivo | `evaluaciones` |
+| Diario | Minutos por habilidad (activos y pasivos), palabras leídas, notas | Sesiones |
+| Semanal | Horas frente a la meta, reparto de los 4 hilos, errores recurrentes | Dashboard / reporte |
+| Cada 4 semanas | EF SET 50 · Write & Improve · speaking grabado | Evaluaciones |
+| Cada 8 semanas | Vocabulary Size Test | Evaluaciones |
+| Cada 3 meses | Autoevaluación MCER · EF SET 4-skill o simulacro (Fase 3) | Evaluaciones |
 
-**Reglas de ajuste:**
-- Si una destreza sube < ½ subnivel en 8 semanas → sube su tiempo en +20 % (quítalo de la destreza más fuerte).
-- Si Anki te toma > 25 min/día → baja las tarjetas nuevas, no las borres.
-- Si no entiendes ≥ 90 % de lo que lees o escuchas → baja el nivel del material.
-- Si llevas > 3 días sin estudiar → vuelve con la versión de 60 min, no intentes "recuperar".
+## Reglas de ajuste
+
+Deciden con **tendencias**, no con un solo dato:
+
+- **Ritmo esperado** (según el modelo, a 1,5 h/día): cada destreza sube **½ subnivel cada ~2–4 meses**; en EF SET, ≈ **1–2 puntos/mes**.
+- **Destreza estancada:** si en **3 mediciones seguidas** (≈ 12 semanas) no hay tendencia positiva, dale +20 % de tiempo, quitándolo de tu destreza más fuerte, y revisa su calidad (¿hay feedback?, ¿el material es del nivel adecuado?).
+- **Cambios pequeños entre dos mediciones** (p. ej. ±3 puntos en EF SET) pueden ser ruido o efecto de práctica: no reacciones a ellos.
+- **Anki te toma más de 25 min/día:** baja las tarjetas nuevas (no las borres).
+- **Entiendes menos del 90 %** de lo que lees o escuchas: baja el nivel del material.
+- **Llevas más de 3 días sin estudiar:** vuelve con la rutina de 60 min, sin intentar "recuperar".
+- **El tracker alerta** de que el input baja del 30 % o el output del 25 %: reequilibra los bloques la semana siguiente.
 
 ## Errores típicos del hispanohablante (tenlos a la vista)
 
-- Omitir el sujeto (*Is raining* → *It is raining*).
-- *People is* → *people are*; *informations/advices* → incontables.
+- Omitir el sujeto: *Is raining* → *It is raining*.
+- *People is* → *people are*; *informations* y *advices* → son incontables.
 - *I have 25 years* → *I am 25*; *make a question* → *ask a question*.
-- Adjetivo tras el sustantivo (*a car red*); plural en adjetivos (*reds cars*).
-- *Present perfect* vs. pasado (*I have seen him yesterday* ✗).
-- Preposiciones (*depend of* → *depend on*; *married with* → *married to*).
-- Pronunciación: *e-* inicial (*espeak*), vocales cortas/largas, *-ed* (*walked* = /wɔːkt/), consonantes finales.
+- Adjetivo detrás del sustantivo (*a car red*) o en plural (*reds cars*).
+- *Present perfect* frente a pasado: *I have seen him yesterday* ✗.
+- Preposiciones: *depend of* → *depend on*; *married with* → *married to*.
+- Pronunciación: *e-* inicial (*espeak*), vocales cortas y largas, *-ed* (*walked* = /wɔːkt/), consonantes finales.
 - Falsos amigos: *actually, eventually, embarrassed, assist, sensible, carpet, library*.
